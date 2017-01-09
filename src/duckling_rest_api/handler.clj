@@ -15,7 +15,7 @@
           {:status 200
            :body {:text text
                   :success true
-                  :results (p/parse :en$core text, [:amount-of-money])
+                  :results (p/parse :en$core text, [:amount-of-money, :phone-number, :date, :time])
                   }}
           )
   )
