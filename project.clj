@@ -6,6 +6,7 @@
                  [compojure "1.5.1"]
                  [ring/ring-json "0.4.0"]
                  [ring/ring-jetty-adapter "1.5.0"]
+                 [ongair/duckling "0.4.22.1"]
                  [ring/ring-defaults "0.2.1"]]
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler duckling-rest-api.handler/app}

@@ -1,11 +1,28 @@
 (ns duckling-rest-api.handler
   (:require [compojure.core :refer :all]
-            [compojure.route :as route]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+            [duckling.core :as p]
+            [compojure.handler :as handler]
+            [ring.middleware.json :as middleware]
+            [compojure.route :as route]))
 
 (defroutes app-routes
-  (GET "/" [] "Hello World")
+  (POST "/" request
+        ; (p.load! {:languages ["en"]})
+        (let [text (or (get-in request [:params :text])
+                       (get-in request [:body :text])
+                       "")]
+        (p/load! {:languages ["en"]})
+          {:status 200
+           :body {:text text
+                  :success true
+                  :results (p/parse :en$core text, [:amount-of-money])
+                  }}
+          )
+  )
+  (route/resources "/")
   (route/not-found "Not Found"))
 
 (def app
-  (wrap-defaults app-routes site-defaults))
+  (-> (handler/site app-routes)
+      (middleware/wrap-json-body {:keywords? true})
+      middleware/wrap-json-response))
