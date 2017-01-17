@@ -7,11 +7,9 @@
 
 (defroutes app-routes
   (POST "/" request
-        ; (p.load! {:languages ["en"]})
         (let [text (or (get-in request [:params :text])
                        (get-in request [:body :text])
                        "")]
-        (p/load! {:languages ["en"]})
           {:status 200
            :body {:text text
                   :success true
@@ -26,3 +24,8 @@
   (-> (handler/site app-routes)
       (middleware/wrap-json-body {:keywords? true})
       middleware/wrap-json-response))
+
+(defn start [])
+  (println "Loading the duckling core")
+  (p/load! {:languages ["en"]})
+  (println "Loaded")

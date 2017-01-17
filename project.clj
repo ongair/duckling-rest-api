@@ -9,7 +9,7 @@
                  [ongair/duckling "0.4.22.1"]
                  [ring/ring-defaults "0.2.1"]]
   :plugins [[lein-ring "0.9.7"]]
-  :ring {:handler duckling-rest-api.handler/app}
+  :ring {:handler duckling-rest-api.handler/app, :init duckling-rest-api.handler/start}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.0"]]}})
